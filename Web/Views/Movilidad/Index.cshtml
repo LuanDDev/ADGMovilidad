@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewData["Title"] = "Registro de Movilidades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-auto me-auto">
+            <div class="row row-cols-auto">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="fecIni" class="form-label">Fecha Inicial</label>
+                        <input type="date" class="form-control" id="fecIni" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="fecFin" class="form-label">Fecha Final</label>
+                        <input type="date" class="form-control" id="fecFin" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="btnBuscar" class="form-label">&nbsp;</label>
+                        <button id="btnBuscar" type="button" class="form-control btn btn-primary">
+                            <i class="ion ion-md-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="btn-group">
+                <button id="btnNuevo" class="btn btn-primary"><i class="fa fa-plus"></i>Nuevo Registro</button>
+                <button id="btnExportar" class="btn btn-green"><i class="fa fa-table"></i>Exportar</button>
+                <button id="btnGenerarVoucher" class="btn btn-orange"><i class="fa fa-table"></i>Generar Voucher</button>
+            </div>
+            <div class="text-end">
+                <br>
+                <span><strong>Total : </strong></span><label class="h5" id="lblSuma"></label>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+
+<div id="div_table" class="table-responsive">
+
+</div>
+
+<div class="modal fade" id="mRegistro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="fechaRegistro" class="form-label">Fecha Registro</label>
+                            <input type="date" class="form-control" id="txtFechaRegistro" placeholder="fecha de Registro">
+                            <input type="hidden" id="txtIdMov" value="" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="txtCentroCosto" class="form-label">C.Costo / Proyecto</label>
+                            <input type="text" class="form-control" id="txtCentroCosto" placeholder="C.Costo / Proyecto">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="txtDistritoOrigen" class="form-label">Distrito Origen</label>
+                            <input type="text" class="form-control" id="txtDistritoOrigen" placeholder="Distrito Origen">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="txtDistritoDestino" class="form-label">Distrito Destino</label>
+                            <input type="text" class="form-control" id="txtDistritoDestino" placeholder="Distrito Destino">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="txtInsDestino" class="form-label">Inst. Destino</label>
+                            <input type="text" class="form-control" id="txtInsDestino" placeholder="Inst. Destino">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="txtMotivo" class="form-label">Motivo</label>
+                            <input type="text" class="form-control" id="txtMotivo" placeholder="Motivo">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="sTransporte" class="form-label">Transporte</label>
+                            <select id="sTransporte" class="form-select" aria-label="Transporte">
+                                <option value="" selected>-- Seleccionar --</option>
+                                <option value="BUS">BUS</option>
+                                <option value="TAXI">TAXI</option>
+                                <option value="TREN">TREN</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="txtHoraSalida" class="form-label">Hora Salida</label>
+                            <input type="time" class="form-control" id="txtHoraSalida" placeholder="Hora Salida">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="txtHoraRetorno" class="form-label">Hora Retorno</label>
+                            <input type="time" class="form-control" id="txtHoraRetorno" placeholder="Hora Retorno">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="txtMonto" class="form-label">Monto</label>
+                            <input type="number" step="0.01" placeholder="0.00" class="form-control" id="txtMonto" value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnGuardarMovilidad" type="button" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa fa-sign-out"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+
+    <script>
+        var url_selectCompany = "@Url.Content("~/")" + "SelectCompany/IndexSelect";
+
+        var url_GetMovilidades = "@Url.Content("~/")" + "Movilidad/GetMovilidades";
+        var url_GetMovilidad = "@Url.Content("~/")" + "Movilidad/GetMovilidad";
+        var url_InsertMovilidad = "@Url.Content("~/")" + "Movilidad/InsertMovilidad";
+        var url_CrearVoucher = "@Url.Content("~/")" + "Movilidad/CrearVoucher";
+        var url_ImprimirVoucher = "@Url.Content("~/")" + "Movilidad/ImprimirVoucher";
+    </script>
+
+    <script src="@Url.Content("~/scripts/Movilidad.js")"></script>
+}
