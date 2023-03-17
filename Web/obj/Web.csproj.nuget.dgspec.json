@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ldelacruz\\Dev\\2022\\Desarrollo\\ERP\\ADGMovilidad\\Movilidad\\Web\\Web.csproj": {}
+    "E:\\Dev\\Adgeminco\\ADGMovilidad\\Web\\Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ldelacruz\\Dev\\2022\\Desarrollo\\ERP\\ADGMovilidad\\Movilidad\\Web\\Web.csproj": {
+    "E:\\Dev\\Adgeminco\\ADGMovilidad\\Web\\Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ldelacruz\\Dev\\2022\\Desarrollo\\ERP\\ADGMovilidad\\Movilidad\\Web\\Web.csproj",
+        "projectUniqueName": "E:\\Dev\\Adgeminco\\ADGMovilidad\\Web\\Web.csproj",
         "projectName": "Web",
-        "projectPath": "C:\\Users\\ldelacruz\\Dev\\2022\\Desarrollo\\ERP\\ADGMovilidad\\Movilidad\\Web\\Web.csproj",
-        "packagesPath": "C:\\Users\\ldelacruz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ldelacruz\\Dev\\2022\\Desarrollo\\ERP\\ADGMovilidad\\Movilidad\\Web\\obj\\",
+        "projectPath": "E:\\Dev\\Adgeminco\\ADGMovilidad\\Web\\Web.csproj",
+        "packagesPath": "C:\\Users\\Luan\\.nuget\\packages\\",
+        "outputPath": "E:\\Dev\\Adgeminco\\ADGMovilidad\\Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ldelacruz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Luan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -87,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.410\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     }

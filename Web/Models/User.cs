@@ -26,5 +26,6 @@ namespace Web.Models
         public string Token { get; set; }
         public string softwares { get; set; }
         public int empresa { get; set; }
+        public string userSignature { get; set; }
     }
 }

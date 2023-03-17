@@ -62,7 +62,7 @@ namespace Web.Controllers
                 var request_json = JsonSerializer.Serialize(obj);
                 var content = new StringContent(request_json, Encoding.UTF8, "application/json");
                 var url = api + "Movilidad/getMovilidades";
-
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
                 var result = await httpClient.PostAsync(url, content);
                 var data = await result.Content.ReadAsStringAsync();
                 return Ok(new { value = data, status = true });
@@ -91,7 +91,7 @@ namespace Web.Controllers
                 var request_json = JsonSerializer.Serialize(obj);
                 var content = new StringContent(request_json, Encoding.UTF8, "application/json");
                 var url = api + "Movilidad/getMovilidadesHis";
-
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
                 var result = await httpClient.PostAsync(url, content);
                 var data = await result.Content.ReadAsStringAsync();
                 return Ok(new { value = data, status = true });
@@ -117,6 +117,7 @@ namespace Web.Controllers
                 var request_json = JsonSerializer.Serialize(obj);
                 var content = new StringContent(request_json, Encoding.UTF8, "application/json");
                 var url = api + "Movilidad/getMovilidad";
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
 
                 var result = await httpClient.PostAsync(url, content);
                 var data = await result.Content.ReadAsStringAsync();
@@ -140,6 +141,7 @@ namespace Web.Controllers
                 var request_json = JsonSerializer.Serialize(obj);
                 var content = new StringContent(request_json, Encoding.UTF8, "application/json");
                 var url = api + "Movilidad/insertMovilidad";
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
 
                 var result = await httpClient.PostAsync(url, content);
                 var data = await result.Content.ReadAsStringAsync();
@@ -152,6 +154,31 @@ namespace Web.Controllers
         }
 
 
+        public async Task<IActionResult> DeleteMovilidad(int idMov)
+        {
+            try
+            {
+                Movilidad obj = new Movilidad();
+                obj.idMov = idMov;
+
+                var api = _configuration["Api:root"];
+                HttpClientHandler clientHandler = new HttpClientHandler();
+                clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+                HttpClient httpClient = new HttpClient(clientHandler);
+                var request_json = JsonSerializer.Serialize(obj);
+                var content = new StringContent(request_json, Encoding.UTF8, "application/json");
+                var url = api + "Movilidad/deleteMovilidad";
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
+
+                var result = await httpClient.PostAsync(url, content);
+                var data = await result.Content.ReadAsStringAsync();
+                return Ok(new { value = data, status = true });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { value = ex.Message, status = false });
+            }
+        }
         public async Task<IActionResult> CrearVoucher(Voucher obj)
         {
             try
@@ -165,6 +192,7 @@ namespace Web.Controllers
                 var request_json = JsonSerializer.Serialize(obj);
                 var content = new StringContent(request_json, Encoding.UTF8, "application/json");
                 var url = api + "Movilidad/crearVoucher";
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
 
                 var result = await httpClient.PostAsync(url, content);
                 var data = await result.Content.ReadAsStringAsync();
@@ -191,6 +219,7 @@ namespace Web.Controllers
 
                 var contentC = new StringContent(request_json, Encoding.UTF8, "application/json");
                 var urlC = api + "Movilidad/getVoucher";
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
                 var resultC = await httpClient.PostAsync(urlC, contentC);
                 var dataC = await resultC.Content.ReadAsStringAsync();
                 //Cambio de Orden para obtener el IdVoucher
@@ -217,6 +246,7 @@ namespace Web.Controllers
 
                 var contentD = new StringContent(request_json, Encoding.UTF8, "application/json");
                 var urlD = api + "Movilidad/getVoucherDetalle";
+                //httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
                 var resultD = await httpClient.PostAsync(urlD, contentD);
                 var dataD = await resultD.Content.ReadAsStringAsync();
                 //Cambio de Orden para obtener el IdVoucher
@@ -318,6 +348,7 @@ namespace Web.Controllers
                 var request_json = JsonSerializer.Serialize(obj);
                 var content = new StringContent(request_json, Encoding.UTF8, "application/json");
                 var url = api + "Movilidad/getVouchers";
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
 
                 var result = await httpClient.PostAsync(url, content);
                 var data = await result.Content.ReadAsStringAsync();
@@ -344,7 +375,7 @@ namespace Web.Controllers
                 var request_json = JsonSerializer.Serialize(obj);
                 var content = new StringContent(request_json, Encoding.UTF8, "application/json");
                 var url = api + "Movilidad/getVouchersDet";
-
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
                 var result = await httpClient.PostAsync(url, content);
                 var data = await result.Content.ReadAsStringAsync();
                 return Ok(new { value = data, status = true });
@@ -372,6 +403,35 @@ namespace Web.Controllers
                 var request_json = JsonSerializer.Serialize(obj);
                 var content = new StringContent(request_json, Encoding.UTF8, "application/json");
                 var url = api + "Movilidad/getVouchersProcesados";
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
+
+                var result = await httpClient.PostAsync(url, content);
+                var data = await result.Content.ReadAsStringAsync();
+                return Ok(new { value = data, status = true });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { value = ex.Message, status = false });
+            }
+
+        }
+        
+        public async Task<IActionResult> ProcesarVoucher(string ids)
+        {
+            try
+            {
+                Voucher obj = new Voucher();
+                obj.userId = (int)UsuarioLogueado.userId;
+                obj.ids = ids;
+
+                var api = _configuration["Api:root"];
+                HttpClientHandler clientHandler = new HttpClientHandler();
+                clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+                HttpClient httpClient = new HttpClient(clientHandler);
+                var request_json = JsonSerializer.Serialize(obj);
+                var content = new StringContent(request_json, Encoding.UTF8, "application/json");
+                var url = api + "Movilidad/procesarVoucher";
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
 
                 var result = await httpClient.PostAsync(url, content);
                 var data = await result.Content.ReadAsStringAsync();

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>E:\Dev\Adgeminco\ADGMovilidad\Web\bin\Release\netcoreapp3.1\publish\</_PublishTargetUrl>
+    <History>True|2023-02-17T21:40:09.3275771Z;True|2023-02-16T12:34:07.3520937-05:00;True|2023-02-14T12:19:43.1229665-05:00;</History>
+  </PropertyGroup>
+</Project>

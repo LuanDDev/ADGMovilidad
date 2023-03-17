@@ -46,6 +46,9 @@
         var url_updatePasswordUser = "@Url.Content("~/")" + "User/updatePasswordUser";
         var url_getMenuForProfile = "@Url.Content("~/")" + "User/getMenuForProfile";
 
+        var url_GetFirma = "@Url.Content("~/")" + "User/GetFirma";
+        var url_SetFirma = "@Url.Content("~/")" + "User/SetFirma";
+
     </script>
     <style>
     </style>
@@ -55,6 +58,7 @@
     <div id="loader" class="app-loader">
         <span class="spinner"></span>
     </div>
+    <div id="spinner_loading" class="loading" style="display:none;">Loading</div>
     <!-- END #loader -->
     <!-- BEGIN #app -->
     <div id="app" class="app app-header-fixed app-sidebar-fixed">
@@ -101,6 +105,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end me-1">
                         <a href="javascript:;" class="dropdown-item cambiarContraseña">Cambiar Contraseña</a>
+                        <a href="javascript:;" class="dropdown-item cambiarFirma">Cambiar Firma</a>
                         @*<a href="javascript:;" class="dropdown-item d-flex align-items-center">
                                 Inbox
                                 <span class="badge bg-danger rounded-pill ms-auto pb-4px">2</span>
@@ -298,6 +303,35 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="btnContrasena" class="btn btn-success">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mCambiarFirma" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cambiar Firma</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col div-img text-center">
+                            <img id="imgPreview" class="rounded mx-auto d-block" src="" alt="" style="width:200px"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <input class="form-control form-control-sm" id="fFirma" type="file">
+                        </div>
+                        <div class="col-2">
+                            <button id="btnGuardarFirma" class="btn btn-outline-green widget-icon rounded"><i class="fas fa-floppy-disk"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>

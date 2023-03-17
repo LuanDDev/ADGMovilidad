@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\ldelacruz\\.nuget\\packages\\": {}
+    "C:\\Users\\Luan\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ldelacruz\\Dev\\2022\\Desarrollo\\ERP\\ADGMovilidad\\Movilidad\\RDLC\\RDLC.csproj",
+      "projectUniqueName": "E:\\Dev\\Adgeminco\\ADGMovilidad\\RDLC\\RDLC.csproj",
       "projectName": "RDLC",
-      "projectPath": "C:\\Users\\ldelacruz\\Dev\\2022\\Desarrollo\\ERP\\ADGMovilidad\\Movilidad\\RDLC\\RDLC.csproj",
-      "packagesPath": "C:\\Users\\ldelacruz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ldelacruz\\Dev\\2022\\Desarrollo\\ERP\\ADGMovilidad\\Movilidad\\RDLC\\obj\\",
+      "projectPath": "E:\\Dev\\Adgeminco\\ADGMovilidad\\RDLC\\RDLC.csproj",
+      "packagesPath": "C:\\Users\\Luan\\.nuget\\packages\\",
+      "outputPath": "E:\\Dev\\Adgeminco\\ADGMovilidad\\RDLC\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ldelacruz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Luan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -63,7 +63,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.410\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
       }
     }
   }

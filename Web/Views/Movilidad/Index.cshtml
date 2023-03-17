@@ -32,9 +32,8 @@
         </div>
         <div class="col-auto">
             <div class="btn-group">
-                <button id="btnNuevo" class="btn btn-primary"><i class="fa fa-plus"></i>Nuevo Registro</button>
-                <button id="btnExportar" class="btn btn-green"><i class="fa fa-table"></i>Exportar</button>
-                <button id="btnGenerarVoucher" class="btn btn-orange"><i class="fa fa-table"></i>Generar Voucher</button>
+                <button id="btnNuevo" class="btn btn-primary"><i class="fa fa-plus"></i>  Nuevo Registro</button>
+                <button id="btnGenerarVoucher" class="btn btn-orange"><i class="fa fa-table"></i>  Generar Voucher</button>
             </div>
             <div class="text-end">
                 <br>
@@ -68,7 +67,7 @@
                     <div class="col-4">
                         <div class="mb-3">
                             <label for="txtCentroCosto" class="form-label">C.Costo / Proyecto</label>
-                            <input type="text" class="form-control" id="txtCentroCosto" placeholder="C.Costo / Proyecto">
+                            <input type="text" class="form-control typeahead" id="txtCentroCosto" placeholder="C.Costo / Proyecto">
                         </div>
                     </div>
                 </div>
@@ -149,6 +148,7 @@
         var url_GetMovilidades = "@Url.Content("~/")" + "Movilidad/GetMovilidades";
         var url_GetMovilidad = "@Url.Content("~/")" + "Movilidad/GetMovilidad";
         var url_InsertMovilidad = "@Url.Content("~/")" + "Movilidad/InsertMovilidad";
+        var url_DeleteMovilidad = "@Url.Content("~/")" + "Movilidad/DeleteMovilidad";
         var url_CrearVoucher = "@Url.Content("~/")" + "Movilidad/CrearVoucher";
         var url_ImprimirVoucher = "@Url.Content("~/")" + "Movilidad/ImprimirVoucher";
     </script>

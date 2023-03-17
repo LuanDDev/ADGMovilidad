@@ -1,10 +1,13 @@
 ﻿using FrontEnd.Web.Models;
 using Helper.Seguridad;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -18,10 +21,12 @@ namespace Web.Controllers
     public class UserController : BaseController
     {
         private readonly IConfiguration _configuration;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public UserController(IConfiguration configuration)
+        public UserController(IConfiguration configuration, IHostingEnvironment env)
         {
             _configuration = configuration;
+            _hostingEnvironment = env;
         }
         public IActionResult UserView()
         {
@@ -267,6 +272,115 @@ namespace Web.Controllers
                 var content = new StringContent(request_json, Encoding.UTF8, "application/json");
 
                 var url = api + "Profile/menuForProfile";
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
+                var result = await httpClient.PostAsync(url, content);
+
+                if (!result.IsSuccessStatusCode)
+                {
+                    //var a =  (result.Headers.WwwAuthenticate);
+
+                    throw new ArgumentException("something bad happended");
+                }
+
+                var data = await result.Content.ReadAsStringAsync();
+
+                return Ok(new { value = data, status = true });
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { value = ex.Message, status = false });
+            }
+        }
+
+        public async Task<IActionResult> GetFirma()
+        {
+            try
+            {
+                User _obj = new User();
+
+                var api = _configuration["Api:root"];
+                HttpClientHandler clientHandler = new HttpClientHandler();
+                clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+                // Pass the handler to httpclient(from you are calling api)
+                HttpClient httpClient = new HttpClient(clientHandler);
+
+                _obj.userId = UsuarioLogueado.userId;
+
+
+                var request_json = JsonSerializer.Serialize(_obj);
+
+                var content = new StringContent(request_json, Encoding.UTF8, "application/json");
+
+                var url = api + "User/getFirma";
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
+                var result = await httpClient.PostAsync(url, content);
+
+                if (!result.IsSuccessStatusCode)
+                {
+                    //var a =  (result.Headers.WwwAuthenticate);
+
+                    throw new ArgumentException("something bad happended");
+                }
+
+                var data = await result.Content.ReadAsStringAsync();
+
+                return Ok(new { value = data, status = true });
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { value = ex.Message, status = false });
+            }
+        }
+
+        public async Task<IActionResult> SetFirma()
+        {
+            try
+            {
+                User _obj = new User();
+
+                var api = _configuration["Api:root"];
+                HttpClientHandler clientHandler = new HttpClientHandler();
+                clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+                // Pass the handler to httpclient(from you are calling api)
+                HttpClient httpClient = new HttpClient(clientHandler);
+
+                _obj.userId = UsuarioLogueado.userId;
+
+                string nombre = UsuarioLogueado.userName;
+                string apellido = UsuarioLogueado.userLastName;
+                string archivo = string.Format("Firma_{0}{1}.png", nombre, apellido);
+
+                IFormFile file = Request.Form.Files[0];
+
+                string folderName = "Signature";
+                string webRootPath = _hostingEnvironment.WebRootPath;
+                string newPath = Path.Combine(webRootPath, folderName);
+
+                if (!Directory.Exists(newPath))
+                {
+                    Directory.CreateDirectory(newPath);
+                }
+                if (file.Length > 0)
+                {
+                    string fullPath = Path.Combine(newPath, archivo);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                        stream.Position = 0;
+                    }
+                }
+
+                _obj.userSignature = archivo;
+
+                var request_json = JsonSerializer.Serialize(_obj);
+
+                var content = new StringContent(request_json, Encoding.UTF8, "application/json");
+
+                var url = api + "User/setFirma";
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
                 var result = await httpClient.PostAsync(url, content);
 

@@ -42,6 +42,31 @@
 
 </div>
 
+<div class="modal fade" id="mVouchersDet" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div id="div_tableDet" class="table-responsive">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                @*<button id="btnGuardarMovilidad" type="button" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>*@
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa fa-sign-out"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @section Scripts
 {
 
@@ -49,6 +74,9 @@
         var url_selectCompany = "@Url.Content("~/")" + "SelectCompany/IndexSelect";
 
         var url_GetVouchers = "@Url.Content("~/")" + "Movilidad/GetVouchers";
+        var url_GetVouchersDet = "@Url.Content("~/")" + "Movilidad/GetVouchersDet";
+        var url_ProcesarVoucher = "@Url.Content("~/")" + "Movilidad/ProcesarVoucher";
+        var url_ImprimirVoucher = "@Url.Content("~/")" + "Movilidad/ImprimirVoucher";
     </script>
 
     <script src="@Url.Content("~/scripts/Vouchers.js")"></script>

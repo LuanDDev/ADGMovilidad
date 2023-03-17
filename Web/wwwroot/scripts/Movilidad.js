@@ -22,6 +22,10 @@ $(document).ready(function () {
 
             $(document).on('click', '#btnNuevo', function () {
                 $('#txtFechaRegistro').val(moment().format('YYYY-MM-DD'));
+                dsh.limpiar();
+                if (sessionStorage.IdEmpresa == 6) {
+                    dsh.GetCentroCosto();
+                }
                 $('#mRegistro').modal('show');
             });
 
@@ -30,8 +34,16 @@ $(document).ready(function () {
                 dsh.InsertMovilidad();
             });
             $(document).on('click', '#btnGenerarVoucher', function () {
+                
                 $('#spinner_loading').show();
                 dsh.CrearVoucher();
+
+            });
+            $(document).on('click', '#btnBuscar', function () {
+                
+                $('#spinner_loading').show();
+                dsh.GetMovilidades();
+
             });
 
         },
@@ -79,6 +91,19 @@ $(document).ready(function () {
             }
 
             return ids;
+        },
+
+        limpiar() {
+            $('#txtIdMov').val('');
+            $('#txtCentroCosto').val('');
+            $('#txtDistritoOrigen').val('');
+            $('#txtDistritoDestino').val('');
+            $('#txtMotivo').val('');
+            $('#sTransporte').val('');
+            $('#txtInsDestino').val('');
+            $('#txtHoraSalida').val('');
+            $('#txtHoraRetorno').val('');
+            $('#txtMonto').val('');
         },
 
         GetMovilidades() {
@@ -159,6 +184,12 @@ $(document).ready(function () {
                     $('#div_table').html(htmlTableDetalle);
 
                     var table = $('#tMovilidades').DataTable({
+                        dom: '<"dataTables_wrapper dt-bootstrap"<"row"<"col-xl-7 d-block d-sm-flex d-xl-block justify-content-center"<"d-block d-lg-inline-flex me-0 me-md-3"l><"d-block d-lg-inline-flex"B>><"col-xl-5 d-flex d-xl-block justify-content-center"fr>>t<"row"<"col-md-5"i><"col-md-7"p>>>',
+                        buttons: [
+                            { extend: 'excel', className: 'btn-sm' },
+                            { extend: 'pdf', className: 'btn-sm' },
+                            { extend: 'print', className: 'btn-sm', name: 'Imprimir' }
+                        ],
                         destroy: true,
                         select: {
                             style: 'multi'
@@ -220,15 +251,55 @@ $(document).ready(function () {
                     $('#tMovilidades tbody').on('click', '.editar', function () {
                         //debugger;
                         var data = table.row($(this).parents('tr')).data();
-                        //console.log(data[11]);
+                        dsh.limpiar();
+                        dsh.GetMovilidad(data[0]);
                         
                     });
                     $('#tMovilidades tbody').on('click', '.eliminar', function () {
                         var data = table.row($(this).parents('tr')).data();
                         //console.log(data[0]);
+
+                        dsh.DeleteMovilidad(data[0]);
                     });
 
                     $('#spinner_loading').hide();
+                },
+                error: function () {
+                    console.log("Error");
+                }
+            });
+        },
+
+        GetMovilidad(id) {
+            $.ajax({
+                cache: false,
+                url: url_GetMovilidad,
+                type: "POST",
+                data: {
+                    idMov: id
+                },
+                success: function (data) {
+                    var ls = JSON.parse(data.value).data[0];
+
+                    if (data.status) {
+
+                        $('#txtIdMov').val(ls.IdMov);
+                        $('#txtCentroCosto').val(ls.CCosto);
+                        $('#txtDistritoOrigen').val(ls.Origen);
+                        $('#txtDistritoDestino').val(ls.Destino);
+                        $('#txtMotivo').val(ls.Motivo);
+                        $('#sTransporte').val(ls.Transporte);
+                        $('#txtInsDestino').val(ls.InstDestino);
+                        $('#txtHoraSalida').val(moment(ls.HoraSalida).format('HH:mm'));
+                        $('#txtHoraRetorno').val(moment(ls.HoraRetorno).format('HH:mm'));
+                        $('#txtMonto').val(ls.Monto);
+                        $('#txtFechaRegistro').val(moment(ls.FechaRegistro).format('YYYY-MM-DD'));
+
+                        $('#spinner_loading').hide();
+
+                        $('#mRegistro').modal('show');
+                    }
+
                 },
                 error: function () {
                     console.log("Error");
@@ -278,6 +349,51 @@ $(document).ready(function () {
             });
         },
 
+        DeleteMovilidad(id) {
+            Swal.fire({
+                icon: 'warning',
+                title: '¿Esta seguro de eliminar reigstro?',
+                showConfirmButton: true,
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Si',
+                //cancelButtonText: 'No',
+                denyButtonText: 'No'
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    $.ajax({
+                        cache: false,
+                        url: url_DeleteMovilidad,
+                        type: "POST",
+                        data: {
+                            idMov: id
+                        },
+                        success: function (data) {
+                            var ls = JSON.parse(data.value).data;
+
+                            if (data.status) {
+                                Swal.fire({
+                                    icon: 'Success', /*'success','error','warning','info','question'*/
+                                    title: 'Éxito',
+                                    text: 'Se eliminò correctamente'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        dsh.GetMovilidades();
+                                    }
+                                })
+                            }
+                        },
+                        error: function () {
+                            console.log("Error");
+                        }
+                    });
+                }
+            })
+
+            
+        },
+
         CrearVoucher() {
 
             if (sum > 41) {
@@ -287,7 +403,7 @@ $(document).ready(function () {
                     text: 'No puedes exceder de S/.41.00'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        
+                        $('#spinner_loading').hide();
                     }
                 })
             } else if (sum == 0) {
@@ -297,7 +413,7 @@ $(document).ready(function () {
                     text: 'Debes seleccionar un registro'
                 }).then((result) => {
                     if (result.isConfirmed) {
-
+                        $('#spinner_loading').hide();
                     }
                 })
             } else {
@@ -329,8 +445,33 @@ $(document).ready(function () {
             sum = 0;
             $('#lblSuma').text(dsh.monedaSoles(sum));
             dsh.GetMovilidades();
-            $('#spinner_loading').hide();
         },
+        GetCentroCosto() {
+            $.ajax({
+                cache: false,
+                url: url_GetCentroCosto,
+                type: "POST",
+                data: {},
+                success: function (data) {
+                    var ls = JSON.parse(data.value).data;
+
+                    let dataSet = [];
+
+                    for (var i = 0; i < ls.length; i++) {
+                        dataSet.push(ls[i].Codigo + ' - ' + ls[i].Descripcion);
+                    }
+
+                    $('input.typeahead').typeahead({
+                        source: dataSet,
+                        showHintOnFocus: 'all'
+                    });
+
+                },
+                error: function () {
+                    console.log("Error");
+                }
+            });
+        }
     };
 
 
