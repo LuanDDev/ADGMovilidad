@@ -23,6 +23,9 @@ $(document).ready(function () {
             $(document).on('click', '#btnNuevo', function () {
                 $('#txtFechaRegistro').val(moment().format('YYYY-MM-DD'));
                 dsh.limpiar();
+                if (sessionStorage.IdEmpresa == 6) {
+                    dsh.GetCentroCosto();
+                }
                 $('#mRegistro').modal('show');
             });
 
@@ -101,7 +104,6 @@ $(document).ready(function () {
             $('#txtHoraSalida').val('');
             $('#txtHoraRetorno').val('');
             $('#txtMonto').val('');
-            $('#txtFechaRegistro').val('');
         },
 
         GetMovilidades() {
@@ -444,6 +446,32 @@ $(document).ready(function () {
             $('#lblSuma').text(dsh.monedaSoles(sum));
             dsh.GetMovilidades();
         },
+        GetCentroCosto() {
+            $.ajax({
+                cache: false,
+                url: url_GetCentroCosto,
+                type: "POST",
+                data: {},
+                success: function (data) {
+                    var ls = JSON.parse(data.value).data;
+
+                    let dataSet = [];
+
+                    for (var i = 0; i < ls.length; i++) {
+                        dataSet.push(ls[i].Codigo + ' - ' + ls[i].Descripcion);
+                    }
+
+                    $('input.typeahead').typeahead({
+                        source: dataSet,
+                        showHintOnFocus: 'all'
+                    });
+
+                },
+                error: function () {
+                    console.log("Error");
+                }
+            });
+        }
     };
 
 

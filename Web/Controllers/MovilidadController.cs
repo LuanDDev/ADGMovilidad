@@ -443,5 +443,26 @@ namespace Web.Controllers
             }
 
         }
+        public async Task<IActionResult> GetCentroCosto()
+        {
+            try
+            {
+                var api = _configuration["Api:root"];
+                HttpClientHandler clientHandler = new HttpClientHandler();
+                clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+                HttpClient httpClient = new HttpClient(clientHandler);
+                var url = api + "Movilidad/getCentroCosto";
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + UsuarioLogueado.Token);
+
+                var result = await httpClient.GetAsync(url);
+                var data = await result.Content.ReadAsStringAsync();
+                return Ok(new { value = data, status = true });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { value = ex.Message, status = false });
+            }
+
+        }
     }
 }

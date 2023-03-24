@@ -8,19 +8,24 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Luan\\.nuget\\packages\\": {}
+    "C:\\Users\\ldelacruz\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Dev\\Adgeminco\\ADGMovilidad\\RDLC\\RDLC.csproj",
+      "projectUniqueName": "D:\\Dev\\ADGMovilidad\\RDLC\\RDLC.csproj",
       "projectName": "RDLC",
-      "projectPath": "E:\\Dev\\Adgeminco\\ADGMovilidad\\RDLC\\RDLC.csproj",
-      "packagesPath": "C:\\Users\\Luan\\.nuget\\packages\\",
-      "outputPath": "E:\\Dev\\Adgeminco\\ADGMovilidad\\RDLC\\obj\\",
+      "projectPath": "D:\\Dev\\ADGMovilidad\\RDLC\\RDLC.csproj",
+      "packagesPath": "C:\\Users\\ldelacruz\\.nuget\\packages\\",
+      "outputPath": "D:\\Dev\\ADGMovilidad\\RDLC\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Luan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ldelacruz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -63,7 +68,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.426\\RuntimeIdentifierGraph.json"
       }
     }
   }
