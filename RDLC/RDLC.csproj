@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="rptGenerarVoucher.rdlc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="rptGenerarVoucher.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="dsCabeceraMovilidad.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

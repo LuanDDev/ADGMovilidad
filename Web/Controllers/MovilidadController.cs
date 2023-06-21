@@ -300,10 +300,6 @@ namespace Web.Controllers
                 parameters.Add("trabajador", cabecera[0].NombreCompleto);
                 parameters.Add("dni", cabecera[0].DNI);
 
-
-                ds.Add(new ProcesarDataSource() { name = "dsDetalleMovilidad", data = cuerpo });
-                ds.Add(new ProcesarDataSource() { name = "dsCabeceraMovilidad", data = cabecera });
-
                 string assemblyfolder = Path.Combine(webRootPath, "Reports");
                 string path = Path.Combine(assemblyfolder, "rptGenerarVoucher.rdlc");
 

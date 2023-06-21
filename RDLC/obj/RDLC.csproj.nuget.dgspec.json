@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Dev\\ADGMovilidad\\RDLC\\RDLC.csproj": {}
+    "D:\\Dev\\ADGMovilidad_\\RDLC\\RDLC.csproj": {}
   },
   "projects": {
-    "D:\\Dev\\ADGMovilidad\\RDLC\\RDLC.csproj": {
+    "D:\\Dev\\ADGMovilidad_\\RDLC\\RDLC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dev\\ADGMovilidad\\RDLC\\RDLC.csproj",
+        "projectUniqueName": "D:\\Dev\\ADGMovilidad_\\RDLC\\RDLC.csproj",
         "projectName": "RDLC",
-        "projectPath": "D:\\Dev\\ADGMovilidad\\RDLC\\RDLC.csproj",
+        "projectPath": "D:\\Dev\\ADGMovilidad_\\RDLC\\RDLC.csproj",
         "packagesPath": "C:\\Users\\ldelacruz\\.nuget\\packages\\",
-        "outputPath": "D:\\Dev\\ADGMovilidad\\RDLC\\obj\\",
+        "outputPath": "D:\\Dev\\ADGMovilidad_\\RDLC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
