@@ -20,6 +20,33 @@ $(document).ready(function () {
             $('#spinner_loading').show();
             dsh.GetMovilidades();
 
+            
+
+            //$(document).on('change', '#txtHoraRetorno', function () {
+            const horaSalida = document.getElementById("txtHoraSalida");
+            const valueSalida = document.getElementById("txtHoraSalidaHidden");
+
+            horaSalida.addEventListener(
+                "input",
+                () => {
+                    valueSalida.value = horaSalida.value;
+                },
+                false,
+            );
+
+            const horaRetorno = document.getElementById("txtHoraRetorno");
+            const valueRetorno = document.getElementById("txtHoraRetornoHidden");
+
+            horaRetorno.addEventListener(
+                "input",
+                () => {
+                    valueRetorno.value = horaRetorno.value;
+                },
+                false,
+            );
+            //});
+            
+
             $(document).on('click', '#btnNuevo', function () {
                 $('#txtFechaRegistro').val(moment().format('YYYY-MM-DD'));
                 dsh.limpiar();
@@ -30,8 +57,10 @@ $(document).ready(function () {
             });
 
             $(document).on('click', '#btnGuardarMovilidad', function () {
-                $('#spinner_loading').show();
-                dsh.InsertMovilidad();
+                if (dsh.validar()) {
+                    $('#spinner_loading').show();
+                    dsh.InsertMovilidad();
+                }
             });
             $(document).on('click', '#btnGenerarVoucher', function () {
                 
@@ -46,6 +75,116 @@ $(document).ready(function () {
 
             });
 
+        },
+
+        validar() {
+            var count = 0;
+
+            if ($('#txtFechaRegistro').val() != '') {
+                $('#txtFechaRegistro').removeClass('is-invalid');
+                $('#txtFechaRegistro').removeClass('is-valid');
+                $('#txtFechaRegistro').addClass('is-valid');
+            } else {
+                $('#txtFechaRegistro').removeClass('is-invalid');
+                $('#txtFechaRegistro').removeClass('is-valid');
+                $('#txtFechaRegistro').addClass('is-invalid');
+                count++;
+            }
+
+            if ($('#txtCentroCosto').val() != '') {
+                $('#txtCentroCosto').removeClass('is-invalid');
+                $('#txtCentroCosto').removeClass('is-valid');
+                $('#txtCentroCosto').addClass('is-valid');
+            } else {
+                $('#txtCentroCosto').removeClass('is-invalid');
+                $('#txtCentroCosto').removeClass('is-valid');
+                $('#txtCentroCosto').addClass('is-invalid');
+                count++;
+            }
+
+            if ($('#txtDistritoOrigen').val() != '') {
+                $('#txtDistritoOrigen').removeClass('is-invalid');
+                $('#txtDistritoOrigen').removeClass('is-valid');
+                $('#txtDistritoOrigen').addClass('is-valid');
+            } else {
+                $('#txtDistritoOrigen').removeClass('is-invalid');
+                $('#txtDistritoOrigen').removeClass('is-valid');
+                $('#txtDistritoOrigen').addClass('is-invalid');
+                count++;
+            }
+
+            if ($('#txtDistritoDestino').val() != '') {
+                $('#txtDistritoDestino').removeClass('is-invalid');
+                $('#txtDistritoDestino').removeClass('is-valid');
+                $('#txtDistritoDestino').addClass('is-valid');
+            } else {
+                $('#txtDistritoDestino').removeClass('is-invalid');
+                $('#txtDistritoDestino').removeClass('is-valid');
+                $('#txtDistritoDestino').addClass('is-invalid');
+                count++;
+            }
+            if ($('#txtInsDestino').val() != '') {
+                $('#txtInsDestino').removeClass('is-invalid');
+                $('#txtInsDestino').removeClass('is-valid');
+                $('#txtInsDestino').addClass('is-valid');
+            } else {
+                $('#txtInsDestino').removeClass('is-invalid');
+                $('#txtInsDestino').removeClass('is-valid');
+                $('#txtInsDestino').addClass('is-invalid');
+                count++;
+            }
+            if ($('#txtMotivo').val() != '') {
+                $('#txtMotivo').removeClass('is-invalid');
+                $('#txtMotivo').removeClass('is-valid');
+                $('#txtMotivo').addClass('is-valid');
+            } else {
+                $('#txtMotivo').removeClass('is-invalid');
+                $('#txtMotivo').removeClass('is-valid');
+                $('#txtMotivo').addClass('is-invalid');
+                count++;
+            }
+            if ($('#sTransporte').val() != '') {
+                $('#sTransporte').removeClass('is-invalid');
+                $('#sTransporte').removeClass('is-valid');
+                $('#sTransporte').addClass('is-valid');
+            } else {
+                $('#sTransporte').removeClass('is-invalid');
+                $('#sTransporte').removeClass('is-valid');
+                $('#sTransporte').addClass('is-invalid');
+                count++;
+            }
+            if ($('#txtHoraSalidaHidden').val() != '') {
+                $('#txtHoraSalida').removeClass('is-invalid');
+                $('#txtHoraSalida').removeClass('is-valid');
+                $('#txtHoraSalida').addClass('is-valid');
+            } else {
+                $('#txtHoraSalida').removeClass('is-invalid');
+                $('#txtHoraSalida').removeClass('is-valid');
+                $('#txtHoraSalida').addClass('is-invalid');
+                count++;
+            }
+            if ($('#txtHoraRetornoHidden').val() != '') {
+                $('#txtHoraRetorno').removeClass('is-invalid');
+                $('#txtHoraRetorno').removeClass('is-valid');
+                $('#txtHoraRetorno').addClass('is-valid');
+            } else {
+                $('#txtHoraRetorno').removeClass('is-invalid');
+                $('#txtHoraRetorno').removeClass('is-valid');
+                $('#txtHoraRetorno').addClass('is-invalid');
+                count++;
+            }
+            if ($('#txtMonto').val() != '') {
+                $('#txtMonto').removeClass('is-invalid');
+                $('#txtMonto').removeClass('is-valid');
+                $('#txtMonto').addClass('is-valid');
+            } else {
+                $('#txtMonto').removeClass('is-invalid');
+                $('#txtMonto').removeClass('is-valid');
+                $('#txtMonto').addClass('is-invalid');
+                count++;
+            }
+
+            return count == 0 ? true : false;
         },
 
         monedaSoles(value) {
@@ -103,6 +242,8 @@ $(document).ready(function () {
             $('#txtInsDestino').val('');
             $('#txtHoraSalida').val('');
             $('#txtHoraRetorno').val('');
+            $('#txtHoraSalidaHidden').val('');
+            $('#txtHoraRetornoHidden').val('');
             $('#txtMonto').val('');
         },
 
@@ -395,20 +536,9 @@ $(document).ready(function () {
         },
 
         CrearVoucher() {
-
-            if (sum > 41) {
+            if (sum == 0) {
                 Swal.fire({
-                    icon: 'error', /*'success','error','warning','info','question'*/
-                    title: 'Cuidado',
-                    text: 'No puedes exceder de S/.41.00'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#spinner_loading').hide();
-                    }
-                })
-            } else if (sum == 0) {
-                Swal.fire({
-                    icon: 'error', /*'success','error','warning','info','question'*/
+                    icon: 'info', /*'success','error','warning','info','question'*/
                     title: 'Cuidado',
                     text: 'Debes seleccionar un registro'
                 }).then((result) => {
@@ -417,26 +547,57 @@ $(document).ready(function () {
                     }
                 })
             } else {
-                var ids = dsh.obtenerValores();
+                if (sum > 41) {
+                    Swal.fire({
+                        icon: 'info', /*'success','error','warning','info','question'*/
+                        title: 'Cuidado',
+                        text: 'Se recomienda no exceder de S/.41.00'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var ids = dsh.obtenerValores();
 
-                $.ajax({
-                    cache: false,
-                    url: url_CrearVoucher,
-                    type: "POST",
-                    data: {
-                        companyId: sessionStorage.IdEmpresa,
-                        ids: ids
-                    },
-                    success: function (data) {
-                        var ls = JSON.parse(data.value).data;
+                            $.ajax({
+                                cache: false,
+                                url: url_CrearVoucher,
+                                type: "POST",
+                                data: {
+                                    companyId: sessionStorage.IdEmpresa,
+                                    ids: ids
+                                },
+                                success: function (data) {
+                                    var ls = JSON.parse(data.value).data;
 
-                        dsh.ImprimirVoucher(ls[0].IdVoucher);
+                                    dsh.ImprimirVoucher(ls[0].IdVoucher);
 
-                    },
-                    error: function () {
-                        console.log("Error");
-                    }
-                });
+                                },
+                                error: function () {
+                                    console.log("Error");
+                                }
+                            });
+                        }
+                    })
+                } else {
+                    var ids = dsh.obtenerValores();
+
+                    $.ajax({
+                        cache: false,
+                        url: url_CrearVoucher,
+                        type: "POST",
+                        data: {
+                            companyId: sessionStorage.IdEmpresa,
+                            ids: ids
+                        },
+                        success: function (data) {
+                            var ls = JSON.parse(data.value).data;
+
+                            dsh.ImprimirVoucher(ls[0].IdVoucher);
+
+                        },
+                        error: function () {
+                            console.log("Error");
+                        }
+                    });
+                }
             }
         },
 
